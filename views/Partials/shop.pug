@@ -1,0 +1,17 @@
+extends header
+block links
+    link(rel="stylesheet", type="text/css", href="../stylesheets/merchandise.css")
+    link(rel='stylesheet', type='text/css', href='../stylesheets/navStyles.css')
+block content
+    .product-storage
+        .card(style='width: 18em;')
+            img.card-img-top(src='https://www.carillonac1.com/images/detailed/1/laptopcore1.jpg' alt='Image is missing')
+            .card-body
+              h5.card-title Ноутбук
+              p.card-text
+                  | Норм ноут, берите
+              .lower-part
+                .btn.btn-primary(href='#') Купить
+                .price
+                    - const price = priceOfTheMerch || "12$"
+                    |  #{price}

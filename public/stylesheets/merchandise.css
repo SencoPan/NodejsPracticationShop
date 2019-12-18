@@ -1,0 +1,14 @@
+.product-storage {
+  padding: 1em;
+}
+.product-storage .lower-part {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.product-storage .price {
+  display: flex;
+  align-items: center;
+}
+
+/*# sourceMappingURL=merchandise.css.map */
