@@ -1,5 +1,8 @@
 .product-storage {
-  padding: 1em;
+  padding: 1em 10em 1em 10em;
+}
+.product-storage .card {
+  margin: 1em;
 }
 .product-storage .lower-part {
   display: flex;

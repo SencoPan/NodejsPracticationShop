@@ -2,12 +2,14 @@ const createError = require('http-errors'),
       express = require('express'),
       path = require('path'),
       cookieParser = require('cookie-parser'),
-      logger = require('morgan');
-
+      logger = require('morgan'),
+      mongoose = require('mongoose');
 
 const app = express();
 
 const shopRoutes = require('./routes/shopPage');
+
+mongoose.connect("mongodb://localhost:27017/shopping")
 
 //Shop Routes
 app.use("/shop", shopRoutes)

@@ -3,15 +3,19 @@ block links
     link(rel="stylesheet", type="text/css", href="../stylesheets/merchandise.css")
     link(rel='stylesheet', type='text/css', href='../stylesheets/navStyles.css')
 block content
+    - const price = priceOfTheMerch || "12$"
     .product-storage
-        .card(style='width: 18em;')
-            img.card-img-top(src='https://www.carillonac1.com/images/detailed/1/laptopcore1.jpg' alt='Image is missing')
-            .card-body
-              h5.card-title Ноутбук
-              p.card-text
-                  | Норм ноут, берите
-              .lower-part
-                .btn.btn-primary(href='#') Купить
-                .price
-                    - const price = priceOfTheMerch || "12$"
-                    |  #{price}
+        - for(let i = 0; i < 4; i++)
+            .row
+             - for(let x = 0; x < 4; x++)
+                .col-sm-2.col-md-3
+                    .card(style='width: 18em;')
+                        img.card-img-top(src='https://www.carillonac1.com/images/detailed/1/laptopcore1.jpg' alt='Image is missing')
+                        .card-body
+                            h5.card-title Ноутбук
+                            p.card-text
+                                | Норм ноут, берите
+                            .lower-part
+                                .btn.btn-primary(href='#') Купить
+                                .price
+                                    |  #{price}
