@@ -4,6 +4,8 @@ const createError = require('http-errors'),
       cookieParser = require('cookie-parser'),
       logger = require('morgan'),
       mongoose = require('mongoose'),
+      passport = require('passport'),
+      flash = require('connect-flash'),
       session = require('express-session');
 
 const app = express();
@@ -12,6 +14,7 @@ const shopRoutes = require('./routes/shopPage');
 const userRoutes = require('./routes/user');
 
 mongoose.connect("mongodb://localhost:27017/shopping")
+require('./config/passport');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,6 +26,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({secret:'SecretCode', resave: false, saveUninitialized: false}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Shop Routes
 app.use("/shop", shopRoutes);
