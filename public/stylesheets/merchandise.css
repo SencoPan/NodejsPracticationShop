@@ -13,5 +13,10 @@
   display: flex;
   align-items: center;
 }
+.product-storage .merch-img {
+  min-height: 13em;
+  max-height: 13em;
+  padding: 1em;
+}
 
 /*# sourceMappingURL=merchandise.css.map */

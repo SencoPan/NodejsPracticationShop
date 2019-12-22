@@ -1,0 +1,16 @@
+extends ../header
+
+block content
+    .container
+        .row
+            .col-md-4.col-md-offset-4
+                h1 Sing Up
+                form(action="/user/signup" method="post")
+                    .form-group
+                        label(for="email") E-Mail
+                        input.from-control(type="text" id="email" name="email")
+                    .form-group
+                        label(for="password") Password
+                        input.from-control(type="password" id="password" name="password")
+                    input(type="hidden" name="_csrf" value=csrfToken)
+                    button.btn.btn-primary(type='submit') Sign Up

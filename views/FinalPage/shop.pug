@@ -1,0 +1,23 @@
+extends ../header
+
+block links
+    link(rel="stylesheet", type="text/css", href="../stylesheets/merchandise.css")
+    link(rel='stylesheet', type='text/css', href='../stylesheets/navStyles.css')
+block content
+    - const price = priceOfTheMerch || "12$"
+    .product-storage
+        - for(let i = 0; i < Math.floor(merch.length / 4) + 1; i++)
+            .row
+             - for(let x = 0; x < 4; x++)
+                - if (merch[i*4+x] !== "" && merch[i*4+x] !== undefined)
+                    .col-sm-2.col-md-3
+                            .card(style='width: 18em;')
+                                img.card-img-top.merch-img(src=merch[i*4+x].imagePath, alt='Image is missing')
+                                .card-body
+                                    h5.card-title #{merch[i*4+x].title}
+                                    p.card-text
+                                        | #{merch[i*4+x].description}
+                                    .lower-part
+                                        .btn.btn-primary(href='#') Купить
+                                        .price
+                                            |  #{merch[i*4+x].price}$

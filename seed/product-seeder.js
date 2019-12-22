@@ -43,7 +43,7 @@ promise.then((data) => {
 }).resolve('Success');
 
 
-destroyConnection = (val) => {
-    console.log(val);
+destroyConnection = (data) => {
+    console.log(data);
     mongoose.disconnect();
 }

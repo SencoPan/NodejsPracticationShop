@@ -3,16 +3,15 @@ const createError = require('http-errors'),
       path = require('path'),
       cookieParser = require('cookie-parser'),
       logger = require('morgan'),
-      mongoose = require('mongoose');
+      mongoose = require('mongoose'),
+      session = require('express-session');
 
 const app = express();
 
 const shopRoutes = require('./routes/shopPage');
+const userRoutes = require('./routes/user');
 
 mongoose.connect("mongodb://localhost:27017/shopping")
-
-//Shop Routes
-app.use("/shop", shopRoutes)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,7 +22,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret:'SecretCode', resave: false, saveUninitialized: false}));
 
+//Shop Routes
+app.use("/shop", shopRoutes);
+app.use("/user", userRoutes);
 
 app.get('/', (req, res) => {
   res.render("ShopLayout");
