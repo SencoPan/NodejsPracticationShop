@@ -6,7 +6,8 @@ const csrfProtection = csrf();
 router.use(csrfProtection);
 
 router.get("/signup", (req, res, next) => {
-   res.render("FinalPage/signUp", {csrfToken: req.csrfToken()})
+   let messages = req.flash('error');
+   res.render("FinalPage/signUp", {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0})
 });
 
 router.post("/signup", passport.authenticate('local.signup', {
