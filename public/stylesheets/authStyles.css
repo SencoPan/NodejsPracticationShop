@@ -1,0 +1,8 @@
+p {
+  margin-bottom: 0 !important;
+}
+p:nth-child(even) {
+  margin-top: 0.5rem;
+}
+
+/*# sourceMappingURL=authStyles.css.map */
