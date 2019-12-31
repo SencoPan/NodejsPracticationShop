@@ -6,7 +6,7 @@ block links
 block content
     - const price = priceOfTheMerch || "12$"
     .product-storage
-        - for(let i = 0; i < Math.floor(merch.length / 4) + 1; i++)
+        - for(let i = 0; i < Math.ceil(merch.length / 4); i++)
             .row
              - for(let x = 0; x < 4; x++)
                 - if (merch[i*4+x] !== "" && merch[i*4+x] !== undefined)

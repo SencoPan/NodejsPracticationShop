@@ -6,6 +6,7 @@ const createError = require('http-errors'),
       mongoose = require('mongoose'),
       passport = require('passport'),
       flash = require('connect-flash'),
+      validator = require('express-validator');
       session = require('express-session');
 
 const app = express();
@@ -13,7 +14,7 @@ const app = express();
 const shopRoutes = require('./routes/shopPage');
 const userRoutes = require('./routes/user');
 
-mongoose.connect("mongodb://localhost:27017/shopping")
+mongoose.connect("mongodb://localhost:27017/shopping", { useNewUrlParser: true, useUnifiedTopology: true });
 require('./config/passport');
 
 // view engine setup
@@ -29,6 +30,7 @@ app.use(session({secret:'SecretCode', resave: false, saveUninitialized: false}))
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(validator());
 
 //Shop Routes
 app.use("/shop", shopRoutes);
@@ -44,7 +46,7 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

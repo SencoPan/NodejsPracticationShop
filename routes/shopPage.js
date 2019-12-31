@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
     Product.find((err, data) => {
         if (err) return console.error(err);
 
-        res.render("./Partials/shop", {merch: data});
+        res.render("./FinalPage/shop", {merch: data});
     })
 });
 

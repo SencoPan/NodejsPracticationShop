@@ -16,6 +16,17 @@ router.post("/signup", passport.authenticate('local.signup', {
    failureFlash: true
 }));
 
+router.get('/signin', (req, res) => {
+   let messages = req.flash('error');
+   res.render("FinalPage/signin", {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0})
+});
+
+router.post('/signin', passport.authenticate('local.signin', {
+   successRedirect: '/user/profile',
+   failureRedirect: '/user/signin',
+   failureFlash: true
+}));
+
 router.get('/profile', (req, res) => {
    res.render('FinalPage/profile')
 });
