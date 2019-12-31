@@ -32,6 +32,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(validator());
 
+// initialisation of the global variable
+app.use((req, res, next) => {
+  res.locals.login = req.isAuthenticated();
+  next()
+});
+
 //Shop Routes
 app.use("/shop", shopRoutes);
 app.use("/user", userRoutes);

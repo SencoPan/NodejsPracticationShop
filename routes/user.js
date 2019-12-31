@@ -5,6 +5,15 @@ const router = require('express').Router(),
 const csrfProtection = csrf();
 router.use(csrfProtection);
 
+
+router.get('/profile', IsLoggedIn,(req, res) => {
+   res.render('FinalPage/profile')
+});
+
+router.use('/shop', notLoggedin, (req, res, next) => {
+   next()
+});
+
 router.get("/signup", (req, res, next) => {
    let messages = req.flash('error');
    res.render("FinalPage/signUp", {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0})
@@ -27,8 +36,23 @@ router.post('/signin', passport.authenticate('local.signin', {
    failureFlash: true
 }));
 
-router.get('/profile', (req, res) => {
-   res.render('FinalPage/profile')
+router.get('/logout', IsLoggedIn,(req, res, next) => {
+   req.logout();
+   res.redirect('/shop');
 });
 
 module.exports = router;
+
+function IsLoggedIn(req, res, next) {
+   if (req.isAuthenticated()) {
+      return next();
+   }
+   res.redirect('/shop');
+}
+
+function notLoggedin(req, res, next) {
+   if (!req.isAuthenticated()) {
+      return next();
+   }
+   res.redirect('/shop');
+}

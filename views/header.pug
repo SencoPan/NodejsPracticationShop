@@ -2,7 +2,7 @@ extends ShopLayout
 
 block header
     nav.navbar.navbar-expand-lg.navbar-light.bg-light
-        a.navbar-brand(href='#') Shop
+        a.navbar-brand(href='/shop') Shop
         button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
             span.navbar-toggler-icon
         #navbarSupportedContent.collapse.navbar-collapse
@@ -13,9 +13,17 @@ block header
                         | Shopping Cart
                         span.sr-only (current)
                 li.nav-item.dropdown.active
-                    a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-                        i.fas.fa-user
-                        | User Management
-                    .dropdown-menu(aria-labelledby='navbarDropdown')
-                        a.dropdown-item(href='#') Action
-                        a.dropdown-item(href='#') Another action
+                    if login
+                        a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                            i.fas.fa-user
+                            | User Management
+                        .dropdown-menu(aria-labelledby='navbarDropdown')
+                            a.dropdown-item(href='/user/profile') Profile
+                            a.dropdown-item(href='/user/logout') Log out
+                    else
+                        a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                            i.fas.fa-user
+                            | Sign up
+                        .dropdown-menu(aria-labelledby='navbarDropdown')
+                            a.dropdown-item(href='/user/signin') Sign in
+                            a.dropdown-item(href='/user/signup') Sign up
