@@ -6,7 +6,8 @@ const createError = require('http-errors'),
       mongoose = require('mongoose'),
       passport = require('passport'),
       flash = require('connect-flash'),
-      validator = require('express-validator');
+      MongoStorage = require('express-session')(session),
+      validator = require('express-validator'),
       session = require('express-session');
 
 const app = express();
@@ -26,7 +27,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({secret:'SecretCode', resave: false, saveUninitialized: false}));
+app.use(session({
+  secret:'SecretCode',
+  resave: false,
+  saveUninitialized: false,
+  storage: new MongoStorage({ mongooseConnection: mongoose.connection}),
+  cookie: { maxAge: 180 * 60 * 1000 }
+}));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -35,6 +42,7 @@ app.use(validator());
 // initialisation of the global variable
 app.use((req, res, next) => {
   res.locals.login = req.isAuthenticated();
+  res.locals.session = req.session;
   next()
 });
 
