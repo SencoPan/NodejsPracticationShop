@@ -4,6 +4,8 @@ block links
     link(rel="stylesheet", type="text/css", href="../stylesheets/merchandise.css")
 block content
     - const price = priceOfTheMerch || "12$"
+    - const test = {test: '121'}
+    h1 #{test['121']}
     .product-storage
         - for(let i = 0; i < Math.ceil(merch.length / 4); i++)
             .row
