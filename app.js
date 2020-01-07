@@ -17,7 +17,6 @@ const userRoutes = require('./routes/user');
 
 mongoose.connect("mongodb://localhost:27017/shopping", { useNewUrlParser: true, useUnifiedTopology: true });
 require('./config/passport');
-const connection = mongoose.createConnection();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -30,7 +29,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret:'SecretCode',
-  store: new MongoStore({ mongooseConnection: connection }),
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
   resave: false,
   saveUninitialized: false,
   cookie: { maxAge: 180 * 60 * 1000 }
@@ -40,14 +39,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(validator());
 
-// initialisation of global variables
+// Initialisation of global variables
 app.use((req, res, next) => {
   res.locals.login = req.isAuthenticated();
   res.locals.session = req.session;
   next()
 });
 
-//Shop Routes
+// Shop Routes
 app.use("/shop", shopRoutes);
 app.use("/user", userRoutes);
 

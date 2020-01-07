@@ -1,6 +1,7 @@
 extends ../header
 
 block links
+    link(rel="shortcut icon" href="../images/favicon.ico")
     link(rel="stylesheet", type="text/css", href="../stylesheets/merchandise.css")
 block content
     - const price = priceOfTheMerch || "12$"
@@ -19,6 +20,8 @@ block content
                                     p.card-text
                                         | #{merch[i*4+x].description}
                                     .lower-part
-                                        .btn.btn-primary(href='#') Купить
+                                        a(href='/shop/add-to-cart/' + merch[i*4+x]._id )
+                                            .btn.btn-primary
+                                                 | Купить
                                         .price
                                             |  #{merch[i*4+x].price}$

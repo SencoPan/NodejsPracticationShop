@@ -2,7 +2,7 @@ const router = require('express').Router(),
     passport = require('passport'),
         csrf = require("csurf");
 
-const csrfProtection = csrf();
+const csrfProtection = csrf({ cookie: true });
 router.use(csrfProtection);
 
 
@@ -14,7 +14,7 @@ router.use('/shop', notLoggedin, (req, res, next) => {
    next()
 });
 
-router.get("/signup", (req, res, next) => {
+router.get("/signup", (req, res) => {
    let messages = req.flash('error');
    res.render("FinalPage/signUp", {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0})
 });
@@ -34,9 +34,11 @@ router.post('/signin', passport.authenticate('local.signin', {
    successRedirect: '/user/profile',
    failureRedirect: '/user/signin',
    failureFlash: true
+}, (info) => {
+   console.log('User is authorised' + info);
 }));
 
-router.get('/logout', IsLoggedIn,(req, res, next) => {
+router.get('/logout', IsLoggedIn,(req, res) => {
    req.logout();
    res.redirect('/shop');
 });

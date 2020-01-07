@@ -46,4 +46,4 @@ promise.then((data) => {
 destroyConnection = (data) => {
     console.log(data);
     mongoose.disconnect();
-}
+};
